@@ -5,6 +5,7 @@ const routes = require('./routes');
 const { dbInit } = require('./config/db');
 const cookieParser = require('cookie-parser');
 const { auth } = require('./middlewares/authMiddleware');
+const { errorHandler } = require('./middlewares/errorHandlerMiddleware');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.static('public'));
 app.use(cookieParser());
 app.use(auth);
 app.use(routes);
+app.use(errorHandler);
 
 
 dbInit();
