@@ -3,6 +3,7 @@ const hbs = require('express-handlebars');
 const { PORT } = require('./config/env');
 const routes = require('./routes');
 const { dbInit } = require('./config/db');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.engine('hbs', hbs.engine({
 app.set('view engine', 'hbs');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
+app.use(cookieParser());
 app.use(routes);
 
 

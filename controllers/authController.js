@@ -12,7 +12,7 @@ router.post('/login', async (req, res) => {
     const user = await authService.login(username, password);
     const token = await authService.createToken(user);
 
-    res.cookie(COOKIE_SESSION.token);
+    res.cookie(COOKIE_SESSION, token, { httpOnly: true });
     res.redirect('/')
 });
 
@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
 
         const token = await authService.createToken(createdUser);
 
-        res.cookie(COOKIE_SESSION, token)
+        res.cookie(COOKIE_SESSION, token, { httpOnly: true })
         res.redirect('/');
     } catch (error) {
         //TODO: handle mongoose error
