@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         required: true,
-    }
+    },
+    publications: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Publication',
+    }],
 });
 
 userSchema.pre('save', function (next) {

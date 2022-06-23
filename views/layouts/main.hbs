@@ -16,9 +16,9 @@
         <!-- In case of error, you should display div with class "error-box" -->
         <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
         {{#if error}}
-            <div class="error-box">
-                <p>{{error}}</p>
-            </div>
+        <div class="error-box">
+            <p>{{error}}</p>
+        </div>
         {{/if}}
 
         <nav>
@@ -31,7 +31,7 @@
                 <li><a href="#">Gallery</a></li>
                 <!-- Logged users -->
                 {{#if user}}
-                <li><a href="#">Create Publication</a></li>
+                <li><a href="/publications/create">Create Publication</a></li>
                 <li><a href="#">Profile</a></li>
                 <li><a href="/auth/logout">Logout</a></li>
                 {{else}}
