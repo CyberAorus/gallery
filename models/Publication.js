@@ -16,8 +16,8 @@ const publicationSchema = new mongoose.Schema({
     },
     certificate: {
         type: String,
+        enum: ['Yes', 'No'],
         required: true,
-        enum: ['Yes', 'No']
     },
     author: {
         type: mongoose.Types.ObjectId,
@@ -27,7 +27,6 @@ const publicationSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User',
     }],
-
 });
 
 
