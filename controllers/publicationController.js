@@ -15,7 +15,7 @@ router.get('/:publicationId/details', async (req, res) => {
     const publication = await publicationService.getOneDetailed(req.params.publicationId).lean();
     const isAuthor = publication.author._id == req.user?._id;
     // const isShared = publication.sharedWith.some(user => user._id == req.user?._id);
-    const isShared = publication.sharedWith.includes(req.user?._id);
+    const isShared = publication.sharedWith.includes(req.user._id);
 
     res.render('publication/details', { ...publication, isAuthor, isShared });
 
@@ -47,14 +47,11 @@ router.get('/create', isAuth, (req, res) => {
     res.render('publication/create');
 });
 
-router.get('/:publicationId/delete', isAuth, preloadPublication, isPublicationAuthor, async (req, res) => {
-
-    await publicationService.deleteOne(req.params.publicationId);
-
-    res.redirect('/publication');
-});
 
 router.post('/create', async (req, res) => {
+
+    const userId = req.body;
+    console.log(userId);
 
     const publicationData = { ...req.body, author: req.user._id };
     try {
@@ -64,6 +61,13 @@ router.post('/create', async (req, res) => {
     } catch (error) {
         res.render('publication/create', { ...req.body, error: getErrorMessage(error) });
     }
+});
+
+router.get('/:publicationId/delete', isAuth, preloadPublication, isPublicationAuthor, async (req, res) => {
+
+    await publicationService.deleteOne(req.params.publicationId);
+
+    res.redirect('/publication');
 });
 
 router.get('/:publicationId/share', isAuth, async (req, res) => {

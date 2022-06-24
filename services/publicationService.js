@@ -1,4 +1,4 @@
-const Publication = require('../models/publication');
+const Publication = require('../models/Publication');
 
 exports.getAllPublications = () => Publication.find();
 exports.getOne = (publicationId) => Publication.findById(publicationId);

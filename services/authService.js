@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config/env');
@@ -10,24 +10,24 @@ exports.login = async (username, password) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-        throw new Error('User or password not found');
+        throw { status: 404, message: 'User not found' };
     }
 
     const isValid = await bcrypt.compare(password, user.password);
 
     if (!isValid) {
-        throw new Error('User or password not found');
+        throw { status: 401, message: 'Invalid password' };
     }
     return user;
 }
 
 exports.createToken = (user) => {
     const payload = {
+        _id: user._id,
         username: user.username,
         address: user.address,
-        id: user._id,
     }
-    const options = { expiresIn: '3h' }
+    const options = { expiresIn: '3d' }
 
     const tokenPromise = new Promise((resolve, reject) => {
 
@@ -39,6 +39,6 @@ exports.createToken = (user) => {
             resolve(decodedToken)
         });
 
-    })
-    return tokenPromise;
+    });
+    return tokenPromise;    
 }

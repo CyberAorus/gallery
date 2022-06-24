@@ -28,21 +28,17 @@ router.get('/register', isGuest, (req, res) => {
 });
 
 router.post('/register', isGuest, async (req, res) => {
-    const { username, password, rePassword, address } = req.body;
+    const { password, rePassword, ...userData } = req.body;
 
     if (password !== rePassword) {
-        res.render('auth/register', {
+        
+        return res.render('auth/register', {
             error: 'Passwords do not match',
         });
-        return;
     }
-    // TODO: register user
+
     try {
-        const createdUser = await authService.create({
-            username,
-            password,
-            address
-        });
+        const createdUser = await authService.create({password, ...userData});
 
         const token = await authService.createToken(createdUser);
 
