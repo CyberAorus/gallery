@@ -11,7 +11,7 @@ exports.auth = (req, res, next) => {
         jwt.verify(token, JWT_SECRET, ((err, decodedToken) => {
             if (err) {
                 res.clearCookie(COOKIE_SESSION);
-                res.redirect('/auth/login');
+                return res.redirect('/auth/login');
             }
             req.user = decodedToken;
             res.locals.user = decodedToken;
