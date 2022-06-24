@@ -1,7 +1,11 @@
 const router = require('express').Router();
+const publicationService = require('../services/publicationService');
 
-router.get('/', (req, res) => {
-    res.render('home');
+router.get('/', async (req, res) => {
+    const publicationsResult = await publicationService.getAllPublications().lean();
+    const publications = publicationsResult.map(x => ({ ...x, sharedCount: x.sharedWith.length }));
+
+    res.render('home', { publications });
 });
 
 module.exports = router;
