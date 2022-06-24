@@ -4,16 +4,7 @@
 
         <!--If there are art publications in the database, show each of them-->+
         {{#each publications}}
-        <article class="card-info">
-            <article class="card-info-image">
-                <img src="{{artPicture}}" alt="{{title}}">
-            </article>
-            <article class="card-info-text">
-                <h2>Title: {{title}}</h2>
-                <h3>Certificate of authenticity: {{certificate}}</h3>
-                <a href="/publications/{{_id}}/details" class="details-btn">Details</a>
-            </article>
-        </article>
+            {{> publicationTemplate}}
         {{else}}
         <!--If there are still no art publications in the database display:-->
         <article class="no-available-publications">

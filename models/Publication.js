@@ -20,11 +20,11 @@ const publicationSchema = new mongoose.Schema({
         required: true,
     },
     author: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
     usersShared: [{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     }],
 });
